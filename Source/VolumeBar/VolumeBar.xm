@@ -23,8 +23,11 @@ static BOOL volumeBar = YTMU(@"YTMUltimateIsEnabled") && YTMU(@"volBar");
     self = %orig;
 
     if (self && volumeBar) {
-        self.volumeBar = [[GSVolBar alloc] initWithFrame:CGRectMake(self.frame.size.width / 2 - (self.frame.size.width / 2) / 2, 0, self.frame.size.width / 2, 25)];
-
+        self.volumeBar = [[GSVolBar alloc] initWithFrame:
+            CGRectMake(self.frame.size.width / 4,
+                       0,
+                       self.frame.size.width / 2,
+                       25)];
         [self addSubview:self.volumeBar];
     }
 
@@ -35,7 +38,10 @@ static BOOL volumeBar = YTMU(@"YTMUltimateIsEnabled") && YTMU(@"volBar");
     %orig;
 
     if (volumeBar) {
-        self.volumeBar.frame = CGRectMake(self.frame.size.width / 2 - (self.frame.size.width / 2) / 2, CGRectGetMinY(self.tabView.frame) - 25, self.frame.size.width / 2, 25);
+        self.volumeBar.frame = CGRectMake(self.frame.size.width / 4,
+                                          CGRectGetMinY(self.tabView.frame) - 25,
+                                          self.frame.size.width / 2,
+                                          25);
     }
 }
 
@@ -58,10 +64,9 @@ static BOOL volumeBar = YTMU(@"YTMUltimateIsEnabled") && YTMU(@"volBar");
 %new
 - (void)updateVolBarVisibility {
     if (volumeBar) {
-        dispatch_async(dispatch_get_main_queue(), ^(void){
+        dispatch_async(dispatch_get_main_queue(), ^{
             self.volumeBar.hidden = !(self.isExpanded && self.currentLayout == 2);
         });
     }
 }
-
 %end

@@ -38,13 +38,11 @@
 
 - (void)singleVideo:(id)video currentVideoTimeDidChange:(id)time {
     %orig;
-
     [self skipSegment];
 }
 
 - (void)potentiallyMutatedSingleVideo:(id)video currentVideoTimeDidChange:(id)time {
     %orig;
-
     [self skipSegment];
 }
 
@@ -84,9 +82,7 @@
                     [self seekToTime:[[jsonDictionary objectForKey:@"segment"][1] floatValue]];
 
                     [[%c(YTMToastController) alloc] showMessage:LOC(@"SEGMENT_SKIPPED") HUDMessageAction:unskipAction infoType:0 duration:ytmuInt(@"sbDuration")];
-                }
-
-                else {
+                } else {
                     [[%c(YTMToastController) alloc] showMessage:LOC(@"FOUND_SEGMENT") HUDMessageAction:skipAction infoType:0 duration:ytmuInt(@"sbDuration")];
                 }
             }
